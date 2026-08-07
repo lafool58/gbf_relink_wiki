@@ -789,6 +789,53 @@ function renderModalPhase() {
       <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.45;">${stageData.desc}</p>
     </div>
   `;
+
+  // Draw Card 5: 실전 추천 콤보 가이드
+  const comboGuides = {
+    fraux: [
+      { name: "기본 게이지 수급 콤보", seq: "평타 2타 ➡️ 강공격 콤보 ➡️ 스탠스 돌입 ➡️ 회피(R2) 캔슬", desc: "안정적으로 스탠스 강공 게이지를 수급하고 딜 레이션을 유지하는 기본 리듬 콤보입니다." },
+      { name: "폭딜 캔슬 버스트 루프", seq: "인도미누스 (자버프) ➡️ 파워 플랜트 ➡️ 강공 피니시 ➡️ 올 다운 (방깎 디버프)", desc: "적 보스가 기절했거나 링크 어택 상태일 때 모든 스킬과 스탠스 쿨다운을 초기화하며 스팸하는 극딜 콤보입니다." }
+    ],
+    cagliostro: [
+      { name: "극치의 진리 전용진 쿨감 루프", seq: "평타 3타 ➡️ 강공격 (ㅁㅁㅁㅅ) ➡️ 모션 종료 전 회피 캔슬", desc: "콤보 피니시 적중 시 모든 어빌리티의 쿨타임을 대폭 감소시켜 판타즈마고리아를 무한 유지하는 콤보입니다." },
+      { name: "오의 체인 가속 폭딜", seq: "판타즈마고리아 ➡️ 알렉산드리아 ➡️ 테제베 (최대 차징 방사)", desc: "버프와 디버프를 아군에게 얹은 후 테제베의 다단 히트로 링크 수치와 오의를 폭증시키는 세팅입니다." }
+    ],
+    zeta: [
+      { name: "알베스 루프 체공 콤보 (콩콩이)", seq: "인피니트 원더즈 (표식 부여) ➡️ 알베스의 공명 (도약) ➡️ 체공 약공 3타 ➡️ 타이밍 강공 (루프)", desc: "공중에 머무르며 적의 지상 장판 공격을 완전 회피하는 동시에 상한 딜을 지속적으로 꽂아 넣는 핵심 콤보입니다." },
+      { name: "지상 카운터 및 버스트", seq: "렐름스 마제스티 (적 공격 패링) ➡️ 즉시 점프 강공 ➡️ 시그노 드라이브 ➡️ 오의 연계", desc: "보스의 포효나 광역 패턴을 렐름스 패링으로 맞받아친 후 즉시 체공 상태로 연계하는 콤보입니다." }
+    ],
+    beatrix: [
+      { name: "마검 저스트 타이밍 평강 콤보", seq: "제피로스 (게이지 수급) ➡️ 평타 ➡️ 저스트 강공격 (ㅅ 타이밍 입력) ➡️ 불멸의 신념 발동", desc: "타이밍에 맞춰 강공격을 입력하여 공격 속도와 데미지 배율을 폭증시키고 게이지 손실을 없애는 핵심 운용법입니다." },
+      { name: "불사신 무적 버스트 콤보", seq: "임모탈리티 (무적화) ➡️ 재밍 (회피무적 연장) ➡️ 마검 저스트 연타 ➡️ 수동 포션 복구", desc: "체력이 깎일수록 피해량이 늘어나는 배수 옵션을 극대화하기 위해 자가 피소모 중 무적을 켜고 난사하는 상급자용 콤보입니다." }
+    ]
+  };
+
+  const defaultCombos = [
+    { name: "기본 연계 피니시 콤보", seq: "일반 공격 연타 (ㅁㅁㅁ) ➡️ 특수 강공격 피니시 (ㅅ) ➡️ 액티브 어빌리티 캔슬", desc: "리링크의 보편적인 연계 방식으로, 평타 딜레이를 최소화하고 어빌리티 쿨다운 사이를 채우는 징검다리 콤보입니다." },
+    { name: "링크 버스트 극딜 루프", seq: "링크 어택 ➡️ 즉시 강공 피니시 ➡️ 오의 발동 ➡️ 4인 체인 버스트 연계", desc: "보스가 그로기 상태가 되었을 때 오의 수급과 그로기 연장을 동시에 노리는 정석 버스트 콤보입니다." }
+  ];
+
+  const characterComboList = comboGuides[char.id] || defaultCombos;
+
+  const comboCard = document.getElementById("modal-combos");
+  comboCard.innerHTML = `
+    <h3>${char.name} 추천 실전 콤보 가이드</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+      ${characterComboList.map((cb, idx) => `
+        <div class="weapon-box" style="margin-bottom: 0 !important; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; margin-bottom: 6px;">
+              <span style="color: var(--accent-color);">${idx + 1}. ${cb.name}</span>
+            </div>
+            <p style="font-size: 12px; font-weight: 700; color: var(--text-color); background: rgba(226,232,240,0.08); padding: 8px 10px; border-radius: 6px; border-left: 3px solid var(--accent-color); line-height: 1.4; margin-bottom: 8px; font-family: monospace;">
+              ${cb.seq}
+            </p>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.45; margin-top: 4px;">${cb.desc}</p>
+        </div>
+      `).join('')}
+    </div>
+  `;
 }
 
 function closeModal() {
