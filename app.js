@@ -321,38 +321,53 @@ function openModal(charId) {
     card1.innerHTML += "<p>스킬 쿨타임 주기 관리 및 평타-강공 연계 콤보가 주력입니다.</p>";
   }
 
-  // Card 2: 무기 성장 테크트리
+  // Card 2: 무기 성장 테크트리 (우선순위 & 추천도 대응)
   const card2 = document.getElementById("detail-card-2");
-  card2.innerHTML = "<h3>추천 무기 성장 테크트리</h3>";
-  if (char.weapons) {
-    card2.innerHTML += `
-      <div class="weapon-box"><strong>[스팅어/치명타]</strong> ${char.weapons.stinger.name}<br><span style="color: var(--text-secondary);">${char.weapons.stinger.desc}</span></div>
-      <div class="weapon-box"><strong>[각성/어센션]</strong> ${char.weapons.ascension.name}<br><span style="color: var(--text-secondary);">${char.weapons.ascension.desc}</span></div>
-      <div class="weapon-box"><strong>[궁극/종결]</strong> ${char.weapons.terminus.name}<br><span style="color: var(--text-secondary);">${char.weapons.terminus.desc}</span></div>
-    `;
+  card2.innerHTML = "<h3>추천 무기 우선순위 & 추천도</h3>";
+  if (char.weapons && Array.isArray(char.weapons) && char.weapons.length > 0) {
+    char.weapons.forEach(w => {
+      card2.innerHTML += `
+        <div class="weapon-box">
+          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 11.5px; margin-bottom: 3px;">
+            <span style="color: var(--accent-color);">${w.tier} [${w.type}]</span>
+            <span style="color: #e28743;">추천도: ${w.rating}</span>
+          </div>
+          <strong>${w.name}</strong>
+          <span style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 4px; line-height: 1.4;">${w.desc}</span>
+        </div>
+      `;
+    });
   } else {
     card2.innerHTML += `
-      <div class="weapon-box"><strong>[스팅어/치명타]</strong> 스팅어 무기 제작 (크리 확률 확보)</div>
-      <div class="weapon-box"><strong>[각성/어센션]</strong> 각성 무기 제작 후 150레벨 각성작 진행</div>
-      <div class="weapon-box"><strong>[궁극/종결]</strong> 궁극 무기(터미너스) 및 초월 강화 200레벨 진행</div>
+      <div class="weapon-box"><strong>1순위 [스팅어/치명타]</strong> 스팅어 무기 제작 (크리 확률 확보용)</div>
+      <div class="weapon-box"><strong>2순위 [각성/어센션]</strong> 각성 무기 제작 후 150레벨 각성작 진행</div>
+      <div class="weapon-box"><strong>3순위 [궁극/종결]</strong> 궁극 무기(터미너스) 및 초월 강화 200레벨 진행</div>
     `;
   }
 
-  // Card 3: 추천 진 세팅
+  // Card 3: 추천 진 세팅 및 대체 진 가이드
   const card3 = document.getElementById("detail-card-3");
-  card3.innerHTML = "<h3>추천 진(시길) 세팅</h3>";
+  card3.innerHTML = "<h3>추천 진 & 대체재 가이드</h3>";
   if (char.sigils && char.sigils.length > 0) {
     const ul = document.createElement("ul");
     char.sigils.forEach(sig => {
-      ul.innerHTML += `<li><strong style="color: var(--accent-color);">${sig.priority}</strong> ${sig.name} - ${sig.desc}</li>`;
+      ul.innerHTML += `
+        <li style="margin-bottom: 12px; border-bottom: 1px dashed rgba(226,232,240,0.1); padding-bottom: 8px;">
+          <div style="font-weight: 600; font-size: 13.5px; display: flex; justify-content: space-between; margin-bottom: 2px; align-items: center;">
+            <span style="color: var(--accent-color);">${sig.priority} - ${sig.name}</span>
+            <span style="font-size: 11px; background: var(--badge-bg); color: var(--badge-text); padding: 1px 6px; border-radius: 4px;">대체: ${sig.substitute}</span>
+          </div>
+          <span style="font-size: 12.5px; color: var(--text-secondary); display: block; margin-top: 3px; line-height: 1.45;">${sig.desc}</span>
+        </li>
+      `;
     });
     card3.appendChild(ul);
   } else {
     card3.innerHTML += `
       <ul>
-        <li><strong>★1순위</strong> 데미지 상한 V (최종 65레벨 풀셋팅)</li>
-        <li><strong>★2순위</strong> 크리티컬 확률 V (치명타 100% 확보용)</li>
-        <li><strong>★3순위</strong> 혼신 / 폭군 (깡공 및 데미지 상한 도달용)</li>
+        <li><strong>티어 1 (필수)</strong> 데미지 상한 V (최종 65레벨 풀셋팅)</li>
+        <li><strong>티어 1 (필수)</strong> 크리티컬 확률 V (치명타 100% 확보용)</li>
+        <li><strong>티어 2 (선택)</strong> 혼신 / 폭군 (깡공 및 데미지 상한 도달용)</li>
       </ul>
     `;
   }
