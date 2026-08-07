@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Granblue Fantasy: Relink Complete Wiki Guide</title>
+  <meta name="description" content="그랑블루 판타지 리링크 오리지널 스토리 엔딩 직후부터 확장팩 엔드리스 라그나로크까지 포함하는 전 캐릭터, 무기, 진 세팅 통합 공략 웹 도감입니다.">
+  <link rel="stylesheet" href="index.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header Section -->
+    <header class="glass-panel">
+      <div class="logo-section">
+        <h1 id="brand-title">🌌 GBF: Relink Complete Wiki</h1>
+        <p>오리지널 엔딩 ➡️ 초월 200레벨 종결 파밍을 위한 통합 가이드북</p>
+      </div>
+      <div>
+        <button class="theme-toggle-btn" id="theme-btn" onclick="toggleTheme()">☀️ 테마 전환</button>
+      </div>
+    </header>
+
+    <!-- Tab Selection Menu -->
+    <div class="tab-control-bar glass-panel">
+      <button class="tab-btn-item active" data-tab="characters" onclick="switchTab('characters')">🎮 캐릭터 도감</button>
+      <button class="tab-btn-item" data-tab="roadmap" onclick="switchTab('roadmap')">🗺️ 파밍 로드맵</button>
+      <button class="tab-btn-item" data-tab="databases" onclick="switchTab('databases')">⚔️ 무기 & 진 도감</button>
+      <button class="tab-btn-item" data-tab="checklist" onclick="switchTab('checklist')">☑️ 파밍 체크리스트</button>
+    </div>
+
+    <!-- Search & Filters Panel -->
+    <div class="control-bar glass-panel" id="filter-section">
+      <div class="search-wrapper">
+        <input type="text" class="search-input" id="search-input" placeholder="캐릭터명, 스킬, 진 옵션 또는 수집 무기 검색...">
+      </div>
+      <div class="filter-tags">
+        <span class="filter-label">속성 필터:</span>
+        <div id="element-filters" style="display: inline-flex; gap: 8px; flex-wrap: wrap;"></div>
+      </div>
+      <div class="filter-tags">
+        <span class="filter-label">역할군 필터:</span>
+        <div id="role-filters" style="display: inline-flex; gap: 8px; flex-wrap: wrap;"></div>
+      </div>
+    </div>
+
+    <!-- Panel 1: Characters Grid -->
+    <div id="char-view-panel" style="display: block;">
+      <div class="char-grid" id="char-grid-container">
+        <!-- Dynamic loading of character cards -->
+      </div>
+    </div>
+
+    <!-- Panel 2: Roadmap Timeline -->
+    <div id="roadmap-panel" style="display: none;">
+      <div class="roadmap-container glass-panel">
+        <h2 style="color: var(--accent-color); font-size: 19px; margin-bottom: 10px; border-bottom: 1px solid var(--glass-border); padding-bottom: 6px;">
+          🔄 엔딩 이후 단계별 육성 및 파밍 타임라인
+        </h2>
+        <div class="roadmap-timeline" id="roadmap-timeline">
+          <!-- Dynamic roadmap contents -->
+        </div>
+
+        <h2 style="color: var(--accent-color); font-size: 19px; margin-top: 30px; margin-bottom: 10px; border-bottom: 1px solid var(--glass-border); padding-bottom: 6px;">
+          💎 주요 권장 파밍 퀘스트 목록
+        </h2>
+        <div class="quest-grid" id="quest-grid-container">
+          <!-- Dynamic quests loading -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Weapons & Sigils DB -->
+    <div id="db-panel" style="display: none;">
+      <div class="db-container glass-panel">
+        <div class="db-section">
+          <h3>⚔️ 캐릭터 무기 등급 도감</h3>
+          <div class="db-list" id="db-weapons-list">
+            <!-- Dynamic weapons loading -->
+          </div>
+        </div>
+        <div class="db-section">
+          <h3>💍 초보자 필수 진 (시길) 데이터베이스</h3>
+          <div class="db-list" id="db-sigils-list">
+            <!-- Dynamic sigils loading -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 4: LocalStorage Checklist -->
+    <div id="checklist-panel" style="display: none;">
+      <div class="checklist-container glass-panel">
+        <h2 style="color: var(--accent-color); font-size: 19px; border-bottom: 1px solid var(--glass-border); padding-bottom: 6px; margin-bottom: 12px;">
+          ☑️ 나만의 엔드게임 성장 체크리스트
+        </h2>
+        <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 15px;">
+          오리지널 스토리 종료 후, 메인 파티를 완벽한 성능으로 각성 및 초월시키기 위한 권장 진행 항목들입니다. 체크 여부는 브라우저에 저장됩니다.
+        </p>
+        <div class="checklist-wrapper" id="checklist-wrapper-container">
+          <!-- Dynamic checklist items -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Detail Profile modal Overlay (2x2 Grid Modal Layout) -->
+  <div class="modal-overlay" id="detail-modal">
+    <div class="modal-content glass-panel">
+      <button class="close-modal-btn" onclick="closeModal()">✕</button>
+      
+      <div style="border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; margin-bottom: 15px;">
+        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+          <h2 id="modal-char-name" style="font-size: 26px; font-weight: 700; color: var(--text-color); margin: 0;">캐릭터 이름</h2>
+          <span id="modal-char-title" style="font-size: 14px; color: var(--text-secondary); margin-top: 6px;">캐릭터 호칭</span>
+          <div id="modal-badges" style="display: flex; gap: 8px;"></div>
+        </div>
+        <p id="modal-char-desc" style="font-size: 14px; color: var(--text-secondary); margin-top: 10px; line-height: 1.5;"></p>
+      </div>
+
+      <!-- 2x2 Grid Container -->
+      <div class="detail-grid">
+        <div class="detail-card" id="detail-card-1">
+          <!-- Card 1: 어빌리티 & 콤보 -->
+        </div>
+        <div class="detail-card" id="detail-card-2">
+          <!-- Card 2: 무기 성장 테크트리 -->
+        </div>
+        <div class="detail-card" id="detail-card-3">
+          <!-- Card 3: 추천 진 세팅 -->
+        </div>
+        <div class="detail-card" id="detail-card-4">
+          <!-- Card 4: 플레이어 운용 vs AI 설정 -->
+        </div>
+      </div>
+
+      <!-- Play Tip Alert Box -->
+      <div class="playtip-box" id="modal-playtip"></div>
+    </div>
+  </div>
+
+</body>
+</html>
