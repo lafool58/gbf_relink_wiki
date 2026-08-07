@@ -158,24 +158,30 @@ function renderCharacters() {
     card.onclick = () => openModal(char.id);
 
     const difficultyStars = char.difficulty || "★★★☆☆";
+    const imagePath = `images/list_chara_${char.id}.png`;
 
     card.innerHTML = `
-      <div>
-        <div class="char-header">
-          <div>
-            <div class="char-name">${char.name}</div>
-            <div class="char-title">${char.title || "그랑블루 파이터"}</div>
-          </div>
-          <div class="char-badge-container">
-            <span class="char-badge">${char.element}</span>
-            <span class="char-badge orange">${char.role}</span>
-          </div>
-        </div>
-        <div class="char-desc">${char.desc}</div>
+      <div class="char-card-img-wrapper">
+        <img class="char-card-img" src="${imagePath}" alt="${char.name}" onerror="this.src='https://relink.granbluefantasy.jp/assets/images/common/common/characters/list_chara_gran.png'">
       </div>
-      <div class="char-footer">
-        <span>난이도: <span class="difficulty-stars">${difficultyStars}</span></span>
-        <span style="font-weight: bold; color: var(--accent-color);">상세보기 ➡️</span>
+      <div class="char-card-content">
+        <div>
+          <div class="char-header">
+            <div>
+              <div class="char-name">${char.name}</div>
+              <div class="char-title">${char.title || "그랑블루 파이터"}</div>
+            </div>
+            <div class="char-badge-container">
+              <span class="char-badge">${char.element}</span>
+              <span class="char-badge orange">${char.role}</span>
+            </div>
+          </div>
+          <div class="char-desc">${char.desc}</div>
+        </div>
+        <div class="char-footer">
+          <span>난이도: <span class="difficulty-stars">${difficultyStars}</span></span>
+          <span style="font-weight: bold; color: var(--accent-color);">상세보기 ➡️</span>
+        </div>
       </div>
     `;
     container.appendChild(card);
