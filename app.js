@@ -157,7 +157,7 @@ function renderCharacters() {
     card.className = "char-card glass-panel";
     card.onclick = () => openModal(char.id);
 
-    const difficultyStars = "★".repeat(parseInt(char.difficulty.replace(/[^0-9]/g, '')) || 3);
+    const difficultyStars = char.difficulty || "★★★☆☆";
 
     card.innerHTML = `
       <div>
