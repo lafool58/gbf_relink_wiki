@@ -732,7 +732,7 @@ function renderModalPhase() {
       <div style="margin-top: 12px; border-top: 1px dashed var(--glass-border); padding-top: 10px;">
         <span style="font-size: 11px; color: var(--text-secondary); font-weight: bold; display: block; margin-bottom: 3px;">전체 스킬 목록 참고:</span>
         <ul style="list-style: square; padding-left: 15px; font-size: 12.5px; color: var(--text-secondary);">
-          ${char.skills.map(sk => `<li><strong>${sk.name}</strong>: ${sk.desc}</li>`).join('')}
+          ${char.skills ? char.skills.map(sk => `<li><strong>${sk.name}</strong>: ${sk.desc}</li>`).join('') : '<li>스킬 데이터는 오리지널 메인 4인 공략집에 상세 안내되어 있습니다. 본 캐릭터는 기본 액티브 스킬 4종을 기용하여 운용하십시오.</li>'}
         </ul>
       </div>
     </div>
