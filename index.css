@@ -112,6 +112,11 @@ header {
   cursor: pointer;
   box-shadow: 0 4px 15px var(--accent-glow);
   transition: transform var(--transition-speed), background var(--transition-speed);
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .theme-toggle-btn:hover {

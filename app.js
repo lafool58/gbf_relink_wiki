@@ -748,13 +748,15 @@ function renderModalPhase() {
   const card2 = document.getElementById("detail-card-2");
   card2.innerHTML = "<h3>권장 무기 & 대체 무기</h3>";
   stageData.weapons.forEach(w => {
+    const parsed = parseWeapon(w, char.id);
     card2.innerHTML += `
       <div class="weapon-box">
-        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 11.5px; margin-bottom: 3px;">
-          <span style="color: var(--accent-color);">${w.order} - ${w.name}</span>
-          <span style="color: #e28743;">추천도: ${w.rating}</span>
+        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; margin-bottom: 2px;">
+          <span style="color: var(--accent-color);">${w.order} - ${parsed.name}</span>
+          <span style="color: #e28743; font-size: 11.5px;">추천도: ${w.rating}</span>
         </div>
-        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.45;">${w.desc}</p>
+        ${parsed.sub ? `<div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 5px; font-weight: 600;">계열: ${parsed.sub}</div>` : ''}
+        <p style="font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; line-height: 1.45;">${w.desc}</p>
       </div>
     `;
   });
@@ -947,4 +949,240 @@ function renderModalPhase() {
 function closeModal() {
   const modal = document.getElementById("detail-modal");
   modal.classList.remove("active");
+}
+
+function getWeaponDetails(charId, genericName) {
+  const weaponsDb = {
+    gran: {
+      stinger: "클레이브 (Claidheamh Soluis)",
+      defender: "알론다이트 (Alondite)",
+      ascension: "듀랜달 (Durandal)",
+      stun: "트레저드 (Treasure Sword)",
+      terminus: "세븐즈 디클레어 (Seven-Star Sword)",
+      dlc: "소울 이터 (Soul Eater)"
+    },
+    djeeta: {
+      stinger: "클레이브 (Claidheamh Soluis)",
+      defender: "알론다이트 (Alondite)",
+      ascension: "듀랜달 (Durandal)",
+      stun: "트레저드 (Treasure Sword)",
+      terminus: "세븐즈 디클레어 (Seven-Star Sword)",
+      dlc: "소울 이터 (Soul Eater)"
+    },
+    katalina: {
+      stinger: "루미에르 블레이드",
+      defender: "나이트 래피어",
+      ascension: "클라우 솔라스",
+      stun: "플람베르크",
+      terminus: "뫼비우스",
+      dlc: "소울 블레이드"
+    },
+    rackam: {
+      stinger: "베네디아",
+      defender: "휠록",
+      ascension: "티아마트 볼트",
+      stun: "해적 권총",
+      terminus: "프라메크",
+      dlc: "루이너스 샷"
+    },
+    io: {
+      stinger: "감람석의 지팡이",
+      defender: "정령의 지팡이",
+      ascension: "황금의 영지 (감반테인)",
+      stun: "콜러서스 카인",
+      terminus: "카드케우스",
+      dlc: "천체의 지팡이"
+    },
+    eugen: {
+      stinger: "카노프스",
+      defender: "군용 라이플",
+      ascension: "아카샤 총",
+      stun: "머스킷",
+      terminus: "데트릭스",
+      dlc: "발컨 로켓"
+    },
+    rosetta: {
+      stinger: "러브 이터 (러브 이터널)",
+      defender: "장미의 가시",
+      ascension: "코트 데 브란슈",
+      stun: "장미의 가시 윕",
+      terminus: "다마스쿠스 나이프",
+      dlc: "에테리얼 윕"
+    },
+    lancelot: {
+      stinger: "베인글레이브",
+      defender: "호프누스",
+      ascension: "나이트 디거",
+      stun: "루 가르",
+      terminus: "다마스쿠스 소드",
+      dlc: "백룡의 쌍검"
+    },
+    vane: {
+      stinger: "우콘바사라",
+      defender: "골드 액스",
+      ascension: "성목의 도끼",
+      stun: "스파르타 바르디슈",
+      terminus: "묠니르 (아이무르)",
+      dlc: "황금용의 전투 도끼"
+    },
+    percival: {
+      stinger: "조이세르",
+      defender: "플람베르크",
+      ascension: "로엔그린",
+      stun: "발뭉",
+      terminus: "갓프리",
+      dlc: "염제의 염참도"
+    },
+    siegfried: {
+      stinger: "아스칼론",
+      defender: "클레이모어",
+      ascension: "흐로팅",
+      stun: "밤붕",
+      terminus: "발뭉",
+      dlc: "용해의 중검"
+    },
+    charlotta: {
+      stinger: "위고",
+      defender: "클레이브",
+      ascension: "세이크리드 칼리버",
+      stun: "나이트 소드",
+      terminus: "클라우 솔라스",
+      dlc: "성기사의 영광검"
+    },
+    yodarha: {
+      stinger: "아수라",
+      defender: "닌자도",
+      ascension: "후도쿠니",
+      stun: "하네오토",
+      terminus: "아메노하바키리",
+      dlc: "검호의 쌍도"
+    },
+    narmaya: {
+      stinger: "형천",
+      defender: "코테츠",
+      ascension: "아수라",
+      stun: "요도 무라마사",
+      terminus: "아메노하바키리",
+      dlc: "도법의 극의검"
+    },
+    vaseraga: {
+      stinger: "그레이트 사이스",
+      defender: "헤비 액스",
+      ascension: "가로우",
+      stun: "블러디 사이스",
+      terminus: "에레쉬키갈",
+      dlc: "사신의 처단 낫"
+    },
+    ferry: {
+      stinger: "로젠 윕",
+      defender: "체인 윕",
+      ascension: "백장미의 채찍",
+      stun: "고스트 윕",
+      terminus: "에테리얼 윕",
+      dlc: "영혼의 조련 채찍"
+    },
+    ghandagoza: {
+      stinger: "고대의 권각",
+      defender: "강철 권각",
+      ascension: "황금의 철권",
+      stun: "배틀 건틀릿",
+      terminus: "야마",
+      dlc: "파천의 강권"
+    },
+    id: {
+      stinger: "아바타 소드",
+      defender: "그레이트 소드",
+      ascension: "소울 이터",
+      stun: "드래곤 슬레이어",
+      terminus: "알카디아",
+      dlc: "종말의 종검"
+    },
+    seofon: {
+      stinger: "검신 크리티컬 소드",
+      defender: "검신 수호 디펜더",
+      ascension: "영령의 신검",
+      stun: "검신 스턴 소드",
+      terminus: "검신 세븐즈 디클레어",
+      dlc: "영검 얼티메이트"
+    },
+    tweyen: {
+      stinger: "마탄 크리티컬 보우",
+      defender: "마탄 수호 디펜더",
+      ascension: "영궁 아르테미스",
+      stun: "마탄 스턴 보우",
+      terminus: "천궁 보우오브데비에이션",
+      dlc: "성궁 아폴론"
+    },
+    sandalphon: {
+      stinger: "천사 크리티컬 소드",
+      defender: "천사 수호 디펜더",
+      ascension: "로스트 에덴",
+      stun: "천사 스턴 소드",
+      terminus: "아인 소프 오르",
+      dlc: "정의의 깃털칼"
+    },
+    fediel: {
+      stinger: "죽음 크리티컬 소드",
+      defender: "죽음 수호 디펜더",
+      ascension: "페디엘 스파인",
+      stun: "죽음 스턴 소드",
+      terminus: "소울 이터",
+      dlc: "흑룡의 사령검"
+    }
+  };
+
+  const charDb = weaponsDb[charId];
+  if (!charDb) return { name: genericName, sub: "" };
+
+  const lower = genericName.toLowerCase();
+  if (lower.includes("스팅어")) {
+    return { name: charDb.stinger, sub: "스팅어 무기 (크리티컬 확률)" };
+  } else if (lower.includes("수호")) {
+    return { name: charDb.defender, sub: "수호 무기 (체력 특화)" };
+  } else if (lower.includes("각성") || lower.includes("어센션")) {
+    return { name: charDb.ascension, sub: "각성 무기 (어센션)" };
+  } else if (lower.includes("스턴") || lower.includes("처단")) {
+    return { name: charDb.stun, sub: "처단 무기 (스턴 특화)" };
+  } else if (lower.includes("궁극") || lower.includes("터미너스")) {
+    return { name: charDb.terminus, sub: "궁극 무기 (터미너스)" };
+  } else if (lower.includes("dlc") || lower.includes("최종")) {
+    return { name: charDb.dlc, sub: "DLC 최종 무기 (초월 200레벨)" };
+  }
+
+  return { name: genericName, sub: "" };
+}
+
+function parseWeapon(w, charId) {
+  let name = w.name;
+  let sub = w.type || "";
+  
+  if (name.includes("[") && name.includes("]")) {
+    const parts = name.split("[");
+    name = parts[0].trim();
+    let typeStr = parts[1].replace("]", "").trim();
+    if (typeStr.includes("스팅어")) {
+      sub = "스팅어 무기 (크리티컬 확률)";
+    } else if (typeStr.includes("수호")) {
+      sub = "수호 무기 (체력 특화)";
+    } else if (typeStr.includes("각성") || typeStr.includes("어센션")) {
+      sub = "각성 무기 (어센션)";
+    } else if (typeStr.includes("스턴") || typeStr.includes("처단")) {
+      sub = "처단 무기 (스턴 특화)";
+    } else if (typeStr.includes("궁극") || typeStr.includes("터미너스")) {
+      sub = "궁극 무기 (터미너스)";
+    } else if (typeStr.includes("dlc") || typeStr.includes("최종")) {
+      sub = "DLC 최종 무기 (초월 200레벨)";
+    } else {
+      sub = typeStr;
+    }
+  }
+  
+  const lower = name.toLowerCase();
+  if (lower === "스팅어 무기 (크리티컬 확률)" || lower === "수호 무기 (체력 특화)" || lower === "각성 무기 (어센션)" || lower === "스턴 무기 (기절 특화)" || lower === "궁극 무기 (터미너스)" || lower === "궁극 무기 또는 dlc 최종 무기 [초월 200레벨]" || lower === "최종 dlc 특화 무기" || lower === "각성 무기 [각성 완수]" || lower === "최종 dlc 제작 대검" || lower === "각성 완수") {
+    const mapped = getWeaponDetails(charId, name);
+    name = mapped.name;
+    sub = mapped.sub;
+  }
+  
+  return { name, sub };
 }
