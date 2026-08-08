@@ -749,19 +749,90 @@ body.dark-theme .playtip-box {
 }
 
 @media (max-width: 600px) {
+  /* Header adjustments */
+  header {
+    padding: 12px 10px !important;
+    margin-bottom: 15px !important;
+    gap: 10px !important;
+    align-items: center !important;
+  }
+  
+  .logo-section h1 {
+    font-size: 19px !important;
+  }
+  
+  .logo-section p {
+    font-size: 11px !important;
+    margin-top: 2px !important;
+  }
+  
+  .theme-toggle-btn {
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+  }
+
+  /* Horizontal Tab Scrolling (Swipable) */
+  .tab-control-bar {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 6px !important;
+    padding: 6px !important;
+    margin-bottom: 16px !important;
+    scrollbar-width: none !important; /* Firefox scrollbar hide */
+  }
+  
+  .tab-control-bar::-webkit-scrollbar {
+    display: none !important; /* Webkit browser scrollbar hide */
+  }
+
+  .tab-btn-item {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    padding: 8px 14px !important;
+    font-size: 13px !important;
+  }
+
+  /* Filters vertical alignment */
+  .filter-tags {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .filter-label {
+    font-size: 12px !important;
+    margin-bottom: 2px !important;
+  }
+
+  #element-filters, #role-filters {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+
+  .tag-btn {
+    padding: 5px 12px !important;
+    font-size: 11.5px !important;
+  }
+
+  /* Standardized Character Cards */
   .char-grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
   
   .char-card {
-    height: auto !important;
-    min-height: 150px !important;
+    height: 160px !important; /* Rigid uniform height */
+    min-height: 160px !important;
     padding: 0 !important;
   }
 
   .char-card-img-wrapper {
-    width: 100px !important;
+    width: 105px !important;
   }
 
   .char-card-content {
@@ -770,16 +841,16 @@ body.dark-theme .playtip-box {
 
   .char-name {
     font-size: 17px !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .char-title {
     font-size: 11px !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .char-badge-container {
@@ -795,6 +866,10 @@ body.dark-theme .playtip-box {
   .char-desc {
     font-size: 12px !important;
     margin-top: 8px !important;
+    line-height: 1.4 !important;
+    display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
 }
