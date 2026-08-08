@@ -846,6 +846,56 @@ function renderModalPhase() {
       `).join('')}
     </div>
   `;
+
+  // Draw Card 6: 추천 AI 동료 리스트 (Player 주캐 기용 시)
+  const aiRecommendations = {
+    fraux: [
+      { rank: "1순위", name: "칼리오스트로", role: "서포터 / 힐러", reason: "전용진 및 판타즈마고리아 공방/크리 버프를 지원하여 딜러인 프라우의 딜링과 안정성을 극대화합니다." },
+      { rank: "2순위", name: "오이겐", role: "원거리 유틸 / 딜러", reason: "정밀한 원거리 타격 지원 및 확실한 마비(Paralysis) 디버프 지원으로 보스 프리딜 환경을 조성합니다." },
+      { rank: "3순위", name: "지크프리트", role: "딜포터", reason: "아군 전체 방어력 상승 및 슈퍼아머 버프를 제공하여 프라우의 스탠스 타격 콤보 끊김을 적극 방지합니다." }
+    ],
+    cagliostro: [
+      { rank: "1순위", name: "제타", role: "공중 폭딜러", reason: "칼리오스트로가 강력한 서포트 버프를 가동하는 동안 AI 제타가 공중 콩콩이로 가장 안정적인 폭딜을 꽂아줍니다." },
+      { rank: "2순위", name: "오이겐", role: "원거리 유틸 / 딜러", reason: "적을 묶어주는 마비 상태이상과 포격 유틸을 사용하여 플레이어의 연금술 차지 타임을 안전하게 확보합니다." },
+      { rank: "3순위", name: "샤를로테", role: "근접 폭딜러", reason: "AI 딜러 중 최고급 공격 빈도를 자랑하여 서포팅 사이의 딜 공백을 완벽하게 메워줍니다." }
+    ],
+    zeta: [
+      { rank: "1순위", name: "칼리오스트로", role: "서포터 / 힐러", reason: "공중에서 프리딜을 꽂는 제타를 위해 지상에서 공격/크리티컬 버프 및 원거리 소생을 가장 완벽히 케어합니다." },
+      { rank: "2순위", name: "베인", role: "탱커 / 보호막", reason: "보스의 전멸기 패턴 발생 시 무적 장막을 설치하여 공중에 체공해 회피하기 난해한 패턴을 무효화해 줍니다." },
+      { rank: "3순위", name: "로제타", role: "서포터 / 딜러", reason: "공격/방어 버프 및 지속 도트 힐 결계를 보스 주변에 일정하게 가동하여 제타의 화력을 지원합니다." }
+    ],
+    beatrix: [
+      { rank: "1순위", name: "칼리오스트로", role: "서포터 / 힐러", reason: "자가 체력 소모를 감수하며 극딜하는 베아트리스를 위해 상시 크리/공버프 및 자동 소생 서포트를 공급합니다." },
+      { rank: "2순위", name: "오이겐", role: "원거리 유틸 / 딜러", reason: "안정적인 마비 저격을 지원하여 베아트리스가 리스크 있는 마검 저스트 연타 콤보를 안전하게 연사하도록 돕습니다." },
+      { rank: "3순위", name: "베인", role: "탱커 / 보호막", reason: "베아트리스가 실전 배수 셋팅으로 체력을 낮췄을 때, 보스의 기습적인 공격으로부터 결계 무적으로 생존을 케어해 줍니다." }
+    ]
+  };
+
+  const defaultAiCompanions = [
+    { rank: "1순위", name: "칼리오스트로", role: "서포터", reason: "전용진 기반 강력한 공격/크리티컬 확률 증폭 버프 및 부활 서포트를 제공하는 AI 부동의 1티어 동료입니다." },
+    { rank: "2순위", name: "오이겐", role: "원거리 유틸 / 딜러", reason: "멀리서 보스의 약점을 정확히 타격하고 적시에 마비 디버프를 부여해 쾌적한 딜타임을 열어주는 만능 AI입니다." },
+    { rank: "3순위", name: "로제타", role: "서포터", reason: "보스 위치에 맞추어 공격력 상승, 방어력 증가, 지속 도트 힐 결계를 알아서 똑똑하게 가동해 주는 고효율 AI 버퍼입니다." }
+  ];
+
+  const characterAiList = aiRecommendations[char.id] || defaultAiCompanions;
+
+  const aiCard = document.getElementById("modal-ai-companions");
+  aiCard.innerHTML = `
+    <h3>${char.name} 주캐 운용 시 추천 AI 동료 파티원 (추천순)</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+      ${characterAiList.map((ai, idx) => `
+        <div class="weapon-box" style="margin-bottom: 0 !important; display: flex; flex-direction: column; justify-content: space-between; border-left: 3px solid #38bdf8;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; margin-bottom: 6px;">
+              <span style="color: var(--accent-color);">${ai.rank}. ${ai.name}</span>
+              <span style="font-size: 11px; color: var(--text-secondary); background: var(--badge-bg); padding: 1px 6px; border-radius: 4px;">${ai.role}</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-color); line-height: 1.45; margin-top: 4px;">${ai.reason}</p>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
 }
 
 function closeModal() {

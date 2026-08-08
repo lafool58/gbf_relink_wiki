@@ -671,7 +671,7 @@ body.dark-theme .playtip-box {
   box-shadow: 0 2px 10px var(--accent-glow);
 }
 
-.combo-box {
+.combo-box, .ai-box {
   background: var(--card-bg);
   border: 1px solid var(--glass-border);
   border-radius: 12px;
@@ -679,7 +679,7 @@ body.dark-theme .playtip-box {
   box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
-.combo-box h3 {
+.combo-box h3, .ai-box h3 {
   color: var(--accent-color);
   font-size: 16.5px;
   border-bottom: 1px solid var(--glass-border);
@@ -692,5 +692,56 @@ body.dark-theme .playtip-box {
 @media (max-width: 900px) {
   .detail-grid, .quest-grid, .db-container {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .char-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  
+  .char-card {
+    height: auto !important;
+    min-height: 150px !important;
+    padding: 0 !important;
+  }
+
+  .char-card-img-wrapper {
+    width: 100px !important;
+  }
+
+  .char-card-content {
+    padding: 12px 14px !important;
+  }
+
+  .char-name {
+    font-size: 17px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .char-title {
+    font-size: 11px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .char-badge-container {
+    gap: 4px !important;
+  }
+
+  .char-badge {
+    font-size: 9px !important;
+    padding: 1px 5px !important;
+    white-space: nowrap !important;
+  }
+
+  .char-desc {
+    font-size: 12px !important;
+    margin-top: 8px !important;
+    -webkit-line-clamp: 2 !important;
   }
 }
