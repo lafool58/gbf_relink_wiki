@@ -158,7 +158,7 @@ function renderCharacters() {
     card.onclick = () => openModal(char.id);
 
     const difficultyStars = char.difficulty || "★★★☆☆";
-    const imagePath = `images/list_chara_${char.id}.png`;
+    const imagePath = `images/list_chara_${char.id}.png?v=3`;
 
     card.innerHTML = `
       <div class="char-card-img-wrapper">
