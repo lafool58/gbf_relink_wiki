@@ -750,34 +750,6 @@ body.dark-theme .playtip-box {
   white-space: nowrap;
 }
 
-/* PC-only alignment overrides for specific character cards */
-@media (min-width: 601px) {
-  .char-card.gran .char-card-img {
-    object-position: center 5% !important;
-  }
-  .char-card.beatrix .char-card-img {
-    object-position: center 40% !important;
-    transform: scale(1.15);
-  }
-  .char-card.beatrix:hover .char-card-img {
-    transform: scale(1.23);
-  }
-  .char-card.vaseraga .char-card-img {
-    object-position: center 15% !important;
-    transform: scale(1.1);
-  }
-  .char-card.vaseraga:hover .char-card-img {
-    transform: scale(1.18);
-  }
-  .char-card.ghandagoza .char-card-img {
-    object-position: center 15% !important;
-    transform: scale(1.1);
-  }
-  .char-card.ghandagoza:hover .char-card-img {
-    transform: scale(1.18);
-  }
-}
-
 /* Response and Layout adjustments for smaller viewports */
 @media (max-width: 900px) {
   .detail-grid, .quest-grid, .db-container {
