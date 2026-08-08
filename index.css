@@ -41,6 +41,10 @@ body.dark-theme {
   --badge-text: #00d2ff;
 }
 
+body.dark-theme .char-card-img-wrapper {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -232,7 +236,7 @@ header {
   overflow: hidden;
   position: relative;
   border-right: 1px solid var(--glass-border);
-  background: rgba(226, 232, 240, 0.05);
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
 }
 
 .char-card-img {
