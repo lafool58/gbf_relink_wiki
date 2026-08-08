@@ -850,50 +850,96 @@ function renderModalPhase() {
   // Draw Card 6: 추천 AI 동료 리스트 (Player 주캐 기용 시)
   const aiRecommendations = {
     fraux: [
-      { rank: "1순위", name: "칼리오스트로", role: "서포터 / 힐러", reason: "전용진 및 판타즈마고리아 공방/크리 버프를 지원하여 딜러인 프라우의 딜링과 안정성을 극대화합니다." },
-      { rank: "2순위", name: "오이겐", role: "원거리 유틸 / 딜러", reason: "정밀한 원거리 타격 지원 및 확실한 마비(Paralysis) 디버프 지원으로 보스 프리딜 환경을 조성합니다." },
-      { rank: "3순위", name: "지크프리트", role: "딜포터", reason: "아군 전체 방어력 상승 및 슈퍼아머 버프를 제공하여 프라우의 스탠스 타격 콤보 끊김을 적극 방지합니다." }
+      { rank: "1위", name: "칼리오스트로", rating: "10.0/10", role: "서포터 / 힐러", reason: "전용진 버프로 프라우의 스탠스 공격 대미지 상한 한계를 극한까지 끌어올리며, 위험 시 원거리 즉발 부활을 백업합니다." },
+      { rank: "2위", name: "오이겐", rating: "9.8/10", role: "원거리 유틸 / 딜러", reason: "AI 딜량 1위의 정밀 저격 성능과 보스를 묶어주는 마비(Paralysis) 디버프로 프라우의 프리딜 기회를 무한 제공합니다." },
+      { rank: "3위", name: "지크프리트", rating: "9.2/10", role: "딜포터 / 버퍼", reason: "아군 전체 방어력 상승 및 피격 경직을 면제하는 슈퍼아머를 켜주어 프라우의 기나긴 스탠스 콤보 중단을 막아줍니다." },
+      { rank: "4위", name: "로제타", rating: "8.9/10", role: "버퍼 / 서포터", reason: "보스 위치에 고정되는 공격/방어 버프 및 지속 도트 힐 결계로 프라우의 지상 교전 끈기를 극대화합니다." },
+      { rank: "5위", name: "베인", rating: "8.5/10", role: "탱커 / 보호막", reason: "구형 무적 장막을 제공해 프라우가 적의 광역 전멸기나 회피하기 난해한 타격 중에도 끊김 없이 맞딜을 꽂게 케어합니다." },
+      { rank: "6위", name: "샤를로테", rating: "8.2/10", role: "근접 폭딜러", reason: "AI 중 근접 타격 빈도가 매우 높아 프라우와 함께 보스의 브레이크 및 스턴치를 급격하게 깎아냅니다." },
+      { rank: "7위", name: "페르시발", rating: "7.8/10", role: "딜포터", reason: "동일한 화속성으로 공명 효율을 높이고, 공격력 상승 버프와 적 방깎 디버프 순환으로 딜 한계를 뚫어줍니다." },
+      { rank: "8위", name: "란슬롯", rating: "7.5/10", role: "유틸 딜러", reason: "보스를 완전 행동 불능으로 얼려버리는 빙결 디버프를 공급해 프라우가 여유롭게 콤보 피니시를 넣도록 돕습니다." },
+      { rank: "9위", name: "그랑", rating: "7.0/10", role: "올라운더", reason: "힐과 공격 버프, 상태이상 해제를 고루 가동하며 메인 딜러의 안정성을 든든하게 백업하는 밸런스형 AI입니다." },
+      { rank: "10위", name: "지타", rating: "7.0/10", role: "올라운더", reason: "그랑과 동일하게 세팅되어 위기 상황 시 힐링 및 배리어를 활용하여 생존 부담을 효과적으로 덜어줍니다." }
     ],
     cagliostro: [
-      { rank: "1순위", name: "제타", role: "공중 폭딜러", reason: "칼리오스트로가 강력한 서포트 버프를 가동하는 동안 AI 제타가 공중 콩콩이로 가장 안정적인 폭딜을 꽂아줍니다." },
-      { rank: "2순위", name: "오이겐", role: "원거리 유틸 / 딜러", reason: "적을 묶어주는 마비 상태이상과 포격 유틸을 사용하여 플레이어의 연금술 차지 타임을 안전하게 확보합니다." },
-      { rank: "3순위", name: "샤를로테", role: "근접 폭딜러", reason: "AI 딜러 중 최고급 공격 빈도를 자랑하여 서포팅 사이의 딜 공백을 완벽하게 메워줍니다." }
+      { rank: "1위", name: "제타", rating: "10.0/10", role: "공중 폭딜러", reason: "칼리오스트로가 크리 및 공격 버프를 가동하는 도중 AI 제타가 공중에서 상한 딜을 가장 완벽히 꽂아줍니다." },
+      { rank: "2위", name: "오이겐", rating: "9.8/10", role: "원거리 유틸 / 딜러", reason: "원거리 마비 상태이상과 포격을 통해 칼리오스트로의 연금술 차지 스킬 안전성을 확실하게 보좌합니다." },
+      { rank: "3위", name: "샤를로테", rating: "9.3/10", role: "근접 폭딜러", reason: "지상 딜링 빈도가 우수하여 서포터 중심인 칼리오스트로의 메인 화력 공백을 가장 든든히 채워주는 딜러입니다." },
+      { rank: "4위", name: "지크프리트", rating: "9.0/10", role: "딜포터 / 버퍼", reason: "방어 버프와 슈퍼아머로 칼리오스트로가 장시간의 차징이나 힐링 캐스팅 도중 피격당해도 캔슬되지 않게 차단합니다." },
+      { rank: "5위", name: "로제타", rating: "8.7/10", role: "버퍼 / 서포터", reason: "칼리오스트로의 공방 버프와 로제타의 장미 결계 버프가 완벽히 중첩되어 전체 파티 화력을 상한선까지 증폭합니다." },
+      { rank: "6위", name: "베인", rating: "8.4/10", role: "탱커 / 보호막", reason: "적의 광역 패턴을 무적 실드로 차단하여 칼리오스트로가 안전하게 즉발 부활이나 파티 힐링을 집중하도록 돕습니다." },
+      { rank: "7위", name: "란슬롯", rating: "8.0/10", role: "유틸 딜러", reason: "빙결 상태이상을 적에게 걸어주며 빠른 링크 어택 축적을 지원해 전투 템포를 칼리오스트로에게 맞춰줍니다." },
+      { rank: "8위", name: "페르시발", rating: "7.7/10", role: "딜포터", reason: "공격 버프 및 적의 방어력 감소 디버프를 순환시켜 칼리오스트로의 콤보 어빌 딜 계수를 상향시켜 줍니다." },
+      { rank: "9위", name: "베아트리스", rating: "7.2/10", role: "배수 딜러", reason: "자가 피소모로 폭딜을 가하는 배수 딜러로, 칼리오스트로의 힐 및 부활 케어가 있다면 최고의 딜을 유지합니다." },
+      { rank: "10위", name: "프라우", rating: "7.2/10", role: "스탠스 딜러", reason: "크리티컬 버프 시너지를 완벽히 소화하여 지상에서 꾸준히 누적 딜을 쌓아주는 하이브리드 파트너입니다." }
     ],
     zeta: [
-      { rank: "1순위", name: "칼리오스트로", role: "서포터 / 힐러", reason: "공중에서 프리딜을 꽂는 제타를 위해 지상에서 공격/크리티컬 버프 및 원거리 소생을 가장 완벽히 케어합니다." },
-      { rank: "2순위", name: "베인", role: "탱커 / 보호막", reason: "보스의 전멸기 패턴 발생 시 무적 장막을 설치하여 공중에 체공해 회피하기 난해한 패턴을 무효화해 줍니다." },
-      { rank: "3순위", name: "로제타", role: "서포터 / 딜러", reason: "공격/방어 버프 및 지속 도트 힐 결계를 보스 주변에 일정하게 가동하여 제타의 화력을 지원합니다." }
+      { rank: "1위", name: "칼리오스트로", rating: "10.0/10", role: "서포터 / 힐러", reason: "제타가 공중에서 집중 딜을 꽂는 동안 지상에서 공방/크리 버프와 위험 시 원거리 소생을 완벽하게 백업합니다." },
+      { rank: "2위", name: "베인", rating: "9.8/10", role: "탱커 / 보호막", reason: "보스가 공중 타격기를 시전할 때 무적 장막을 설치하여 제타의 체공 높이 스릴링 안정성을 극대화해 줍니다." },
+      { rank: "3위", name: "오이겐", rating: "9.4/10", role: "원거리 유틸 / 딜러", reason: "마비 및 다운 유틸로 보스를 장시간 바닥에 메쳐두어, 제타가 공중 연속 돌진을 실수 없이 연속 투사하게 돕습니다." },
+      { rank: "4위", name: "로제타", rating: "9.0/10", role: "버퍼 / 서포터", reason: "공격 증폭 결계를 가동해 제타의 공중 콩콩이 연격 타격당 딜링 상한선을 지속적으로 보완해 줍니다." },
+      { rank: "5위", name: "지크프리트", rating: "8.8/10", role: "딜포터 / 버퍼", reason: "전체 방버프와 넉백 방지로 제타가 가끔 지상으로 내려오거나 꼬였을 때 대미지 감소 및 진형 복귀를 지원합니다." },
+      { rank: "6위", name: "샤를로테", rating: "8.4/10", role: "근접 폭딜러", reason: "보스 그로기 상태 시 제타와 나란히 최고 속도의 딜을 집중시켜 오의 게이지를 극한까지 몰아붙입니다." },
+      { rank: "7위", name: "란슬롯", rating: "8.0/10", role: "유틸 딜러", reason: "보스의 행동 반경을 막는 빙결 디버프를 적시 투사해 제타의 낙하 타격 조작을 매우 수월하게 보좌합니다." },
+      { rank: "8위", name: "페르시발", rating: "7.6/10", role: "딜포터", reason: "적 방깎 디버프 순환으로 제타의 콩콩이 피니시 및 에어 어빌리티 데미지 배율을 배로 올려줍니다." },
+      { rank: "9위", name: "프라우", rating: "7.3/10", role: "스탠스 딜러", reason: "지상 스탠스 딜을 흔들림 없이 가동하여 제타의 체공 딜링과 훌륭한 더블 딜 시너지를 완성합니다." },
+      { rank: "10위", name: "베아트리스", rating: "7.3/10", role: "배수 딜러", reason: "제타의 빠른 오의 가속 타이밍에 맞춰 지상에서 폭발적인 데미지 지원으로 고속 토벌을 유도합니다." }
     ],
     beatrix: [
-      { rank: "1순위", name: "칼리오스트로", role: "서포터 / 힐러", reason: "자가 체력 소모를 감수하며 극딜하는 베아트리스를 위해 상시 크리/공버프 및 자동 소생 서포트를 공급합니다." },
-      { rank: "2순위", name: "오이겐", role: "원거리 유틸 / 딜러", reason: "안정적인 마비 저격을 지원하여 베아트리스가 리스크 있는 마검 저스트 연타 콤보를 안전하게 연사하도록 돕습니다." },
-      { rank: "3순위", name: "베인", role: "탱커 / 보호막", reason: "베아트리스가 실전 배수 셋팅으로 체력을 낮췄을 때, 보스의 기습적인 공격으로부터 결계 무적으로 생존을 케어해 줍니다." }
+      { rank: "1위", name: "칼리오스트로", rating: "10.0/10", role: "서포터 / 힐러", reason: "마검 자가 피소모 리스크로 인해 급사율이 가장 높은 베아트리스에게 즉시 부활과 크리 버프를 지원합니다." },
+      { rank: "2위", name: "오이겐", rating: "9.8/10", role: "원거리 유틸 / 딜러", reason: "확실한 마비 타이밍을 벌어주어 베아트리스가 정확한 저스트 타이밍 강공 피니시 콤보를 안전하게 누적시킵니다." },
+      { rank: "3위", name: "베인", rating: "9.5/10", role: "탱커 / 보호막", reason: "피가 낮아야 딜이 강해지는 배수 셋팅 특성상 실전 딸피를 유지하는 베아트리스를 결계 무적으로 보살핍니다." },
+      { rank: "4위", name: "지크프리트", rating: "9.0/10", role: "딜포터 / 버퍼", reason: "방어력 상승 버프와 경직 방지 슈퍼아머로 저스트 타이밍 입력 중 피격되어 콤보가 리셋되는 사고를 차단합니다." },
+      { rank: "5위", name: "로제타", rating: "8.6/10", role: "버퍼 / 서포터", reason: "장미 결계를 통해 공격 버프와 약한 힐을 제공해 배수 세팅의 적정 생명력 선을 아슬아슬하게 유지시켜 줍니다." },
+      { rank: "6위", name: "샤를로테", rating: "8.2/10", role: "근접 폭딜러", reason: "보스 근접 어그로를 최대로 분산시켜 베아트리스가 마검 게이지 수급 및 저스트 딜에만 온전히 집중하게 돕습니다." },
+      { rank: "7위", name: "란슬롯", rating: "7.8/10", role: "유틸 딜러", reason: "빙결 상태이상을 제공하여 보스의 지랄맞은 광폭 패턴을 스킵시키고 안전한 마검 극딜 찬스를 부여합니다." },
+      { rank: "8위", name: "페르시발", rating: "7.5/10", role: "딜포터", reason: "공버프와 적 방깎으로 베아트리스가 임모탈리티 무적 상태에서 극한의 상한 딜을 투사할 발판을 만듭니다." },
+      { rank: "9위", name: "프라우", rating: "7.1/10", role: "스탠스 딜러", reason: "위기 시 적 버프 디스펠과 화속 극딜을 보충하여 교전 안정성과 서포팅 화력을 지원합니다." },
+      { rank: "10위", name: "그랑", rating: "7.0/10", role: "올라운더", reason: "힐과 디스펠 정화, 그리고 링크 피니시 서포트를 고르게 조율해 배수 셋팅이 상태이상으로 꼬이는 것을 방지합니다." }
     ]
   };
 
   const defaultAiCompanions = [
-    { rank: "1순위", name: "칼리오스트로", role: "서포터", reason: "전용진 기반 강력한 공격/크리티컬 확률 증폭 버프 및 부활 서포트를 제공하는 AI 부동의 1티어 동료입니다." },
-    { rank: "2순위", name: "오이겐", role: "원거리 유틸 / 딜러", reason: "멀리서 보스의 약점을 정확히 타격하고 적시에 마비 디버프를 부여해 쾌적한 딜타임을 열어주는 만능 AI입니다." },
-    { rank: "3순위", name: "로제타", role: "서포터", reason: "보스 위치에 맞추어 공격력 상승, 방어력 증가, 지속 도트 힐 결계를 알아서 똑똑하게 가동해 주는 고효율 AI 버퍼입니다." }
+    { rank: "1위", name: "칼리오스트로", rating: "10.0/10", role: "서포터 / 힐러", reason: "공방/크리티컬 버프 및 즉발 소생 유틸을 가진 AI 0티어 부동의 최고 존엄 파티원입니다." },
+    { rank: "2위", name: "오이겐", rating: "9.8/10", role: "원거리 유틸 / 딜러", reason: "AI 조종 시 원거리 저격 딜 손실이 거의 없으며, 마비와 다운 유틸로 완벽한 프리딜 타임을 제공합니다." },
+    { rank: "3위", name: "로제타", rating: "9.5/10", role: "버퍼 / 서포터", reason: "공방 버프 결계와 도트 힐 결계를 스마트하게 가동하여 아군의 교전 및 파밍 안전성을 최고조로 올립니다." },
+    { rank: "4위", name: "지크프리트", rating: "9.1/10", role: "딜포터 / 버퍼", reason: "든든한 아군 전체 방어력 상승 버프 및 슈퍼아머를 끊김 없이 정확하게 순환시켜 주는 명품 AI입니다." },
+    { rank: "5위", name: "베인", rating: "8.7/10", role: "탱커 / 보호막", reason: "보스의 전멸기 패턴 차단용 무적 보호막과 도발 성능으로 플레이어의 프리딜 환경을 가장 잘 가꿔줍니다." },
+    { rank: "6위", name: "샤를로테", rating: "8.4/10", role: "근접 폭딜러", reason: "AI 기용 시 우수한 무적기 활용 성능으로 딜로스가 적으며, 빠른 연타로 브레이크 깎이에 뛰어납니다." },
+    { rank: "7위", name: "란슬롯", rating: "8.0/10", role: "유틸 딜러", reason: "광폭화 보스의 행동을 묶는 빙결 디버프 유무가 중요한 최후반 보스전에서 압도적인 가치를 발휘합니다." },
+    { rank: "8위", name: "페르시발", rating: "7.6/10", role: "딜포터", reason: "아군 전체 공버프와 적 방어력 깎기를 동시 순환해 파티 전체의 데미지 폭발력에 기여합니다." },
+    { rank: "9위", name: "그랑", rating: "7.2/10", role: "올라운더", reason: "힐과 디스펠 정화를 통한 보스 상태이상 억제 및 파티 유틸리티 보강을 매끄럽게 책임집니다." },
+    { rank: "10위", name: "지타", rating: "7.2/10", role: "올라운더", reason: "그랑과 비슷하게 힐, 데미지 컷 배리어 및 링크 게이지 수급에 특화되어 어느 파티나 무난하게 투입 가능합니다." }
   ];
 
   const characterAiList = aiRecommendations[char.id] || defaultAiCompanions;
 
   const aiCard = document.getElementById("modal-ai-companions");
   aiCard.innerHTML = `
-    <h3>${char.name} 주캐 운용 시 추천 AI 동료 파티원 (추천순)</h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
-      ${characterAiList.map((ai, idx) => `
-        <div class="weapon-box" style="margin-bottom: 0 !important; display: flex; flex-direction: column; justify-content: space-between; border-left: 3px solid #38bdf8;">
-          <div>
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; margin-bottom: 6px;">
-              <span style="color: var(--accent-color);">${ai.rank}. ${ai.name}</span>
-              <span style="font-size: 11px; color: var(--text-secondary); background: var(--badge-bg); padding: 1px 6px; border-radius: 4px;">${ai.role}</span>
-            </div>
-            <p style="font-size: 12px; color: var(--text-color); line-height: 1.45; margin-top: 4px;">${ai.reason}</p>
-          </div>
-        </div>
-      `).join('')}
+    <h3>${char.name} 주캐 운용 시 추천 AI 동료 파티원 (Top 10)</h3>
+    <div class="ai-table-wrapper">
+      <table class="ai-table">
+        <thead>
+          <tr>
+            <th style="width: 70px;">순위</th>
+            <th style="width: 100px;">동료 이름</th>
+            <th style="width: 80px;">추천도</th>
+            <th style="width: 120px;">시너지 역할</th>
+            <th>시너지 이유 및 AI 성능 분석</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${characterAiList.map(ai => `
+            <tr>
+              <td><span class="ai-rank-badge">${ai.rank}</span></td>
+              <td style="font-weight: 700; color: var(--text-color);">${ai.name}</td>
+              <td><span class="ai-rating">${ai.rating}</span></td>
+              <td style="font-size: 12.5px; font-weight: 600; color: var(--text-secondary);">${ai.role}</td>
+              <td style="line-height: 1.45; color: var(--text-color);">${ai.reason}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
     </div>
   `;
 }
